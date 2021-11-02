@@ -1,0 +1,13 @@
+.products_list {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
+
+.products_container {
+  padding: 2rem 5rem;
+  min-height: 0;
+  height: 100%;
+  flex-shrink: 1;
+  overflow-y: auto;
+}

@@ -1,52 +1,42 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import { Switch, Route } from 'react-router-dom';
-import Products from './pages/products';
+import Products from './pages/products/products.component';
 import Cart from './pages/cart';
-import Order from './pages/orders';
+import Order from './pages/orders/orders';
 import MainNavigation from './components/layout/MainNavigation';
 
-export interface IState {
-  people: {
-    name: string;
-    age: number;
-    img: string;
-    note?: string;
-  }[];
+export default class App extends React.Component<
+  any,
+  { cartItems: Array<any> }
+> {
+  constructor(props: any) {
+    super(props);
+    this.state = { cartItems: [] };
+  }
+
+  handleClick(productId: any) {
+    this.setState((prevState) => ({
+      cartItems: [productId, ...prevState.cartItems],
+    }));
+  }
+
+  render() {
+    return (
+      <div className='main_container'>
+        <MainNavigation />
+        <Switch>
+          <Route path='/' exact>
+            <Products addProductToCart={this.handleClick.bind(this)} />
+          </Route>
+          <Route path='/cart'>
+            <Cart cartItems={this.state.cartItems} />
+          </Route>
+          <Route path='/orders'>
+            <Order />
+          </Route>
+        </Switch>
+      </div>
+    );
+  }
 }
-
-function App() {
-  const [people, setPeople] = useState<IState['people']>([
-    {
-      name: 'LeBron James111',
-      age: 35,
-      img: 'https://cdn.nba.com/headshots/nba/latest/1040x760/2544.png',
-      note: 'Allegeric to staying on the same team',
-    },
-    {
-      name: 'Kobe Bryant',
-      age: 42,
-      img:
-        'https://fullpresscoverage.com/wp-content/uploads/2020/01/101524695-457220551.jpg',
-    },
-  ]);
-
-  return (
-    <div>
-      <MainNavigation />
-      <Switch>
-        <Route path='/' exact>
-          <Products />
-        </Route>
-        <Route path='/cart'>
-          <Cart />
-        </Route>
-        <Route path='/orders'>
-          <Order />
-        </Route>
-      </Switch>
-    </div>
-  );
-}
-
-export default App;
