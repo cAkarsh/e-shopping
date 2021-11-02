@@ -4,7 +4,7 @@ export default {
 
     // Gets products
     getAllProducts: function () {
-        return axios.get("https://fakestoreapi.com/products");
+        return axios.get("http://localhost:9042/products");
     }
 
 };

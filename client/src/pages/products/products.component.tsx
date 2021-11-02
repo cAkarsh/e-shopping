@@ -21,7 +21,7 @@ class Products extends React.Component<
 
   async getProducts() {
     let data = await ProductsService.getAllProducts().then((res) => {
-      return res.data;
+      return res.data.rows;
     });
     this.setState({ products: data });
   }
