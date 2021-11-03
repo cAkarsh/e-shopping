@@ -47,7 +47,6 @@ export default class Cart extends React.Component<
   render() {
     return (
       <div className={classes.products_container}>
-        All cart
         <div className={classes.products_list}>
           {this.state.cartItems.map((item: any) => {
             return (

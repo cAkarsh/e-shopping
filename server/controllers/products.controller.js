@@ -22,7 +22,7 @@ export const getProducts = async (req, res) => {
 export const getProductsByTitle = async (req, res) => {
     let getAllProducts = `SELECT * FROM eshopping.products WHERE title LIKE '*${req.params.title}*' ALLOW FILTERING`
     try {
-
+        console.log(req.params.title);
         client.execute(getAllProducts, [], (err, result) => {
             if (err) {
                 res.status(404).send({ msg: err })

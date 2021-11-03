@@ -2,6 +2,7 @@ import React from "react";
 import ProductsService from "../../services/products.services";
 import Item from "../../components/product-item/product-item";
 import classes from "./products.module.css";
+import SearchBox from "../../components/search-box/search-box";
 
 class Products extends React.Component<
   any,
@@ -24,6 +25,14 @@ class Products extends React.Component<
       return res.data.rows;
     });
     this.setState({ products: data });
+  }
+
+  async searchHandler(value: any) {
+    let data = await ProductsService.getProductByTitle(value).then(
+      (res: any) => {
+        return res.data.rows;
+      }
+    );
   }
 
   addItemtToCartHandler = (productId: any) => {
@@ -49,8 +58,8 @@ class Products extends React.Component<
   render() {
     return (
       <div className={classes.products_container}>
-        All Products {this.props.cartItemIds} Lenght{" "}
-        {this.props.cartItemIds.filter((id: any) => id === 1).length}
+        <SearchBox onSearch={this.searchHandler} />
+        <br />
         <div className={classes.products_list}>
           {this.state.products.map((item: any) => {
             return (
